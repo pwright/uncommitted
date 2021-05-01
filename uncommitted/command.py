@@ -110,13 +110,13 @@ def status_git(path, ignore_set, options):
     * List of subrepository paths, relative to the repository itself.
     """
     # Check whether current branch is dirty:
-    lines = [l for l in run(('git', 'status', '-s', '-b'), cwd=path)
+    lines = [l for l in run(('git', 'remote', 'get-url', 'origin'), cwd=path)
              if (options.untracked or not l.startswith(b'?'))
              and not l.startswith(b'##')]
 
     # Check all branches for unpushed commits:
-    lines += [l for l in run(('git', 'branch', '-v'), cwd=path)
-              if (b' [ahead ' in l)]
+    #lines += [l for l in run(('git', 'branch', '-v'), cwd=path)
+    #          if (b' [ahead ' in l)]
 
     # Check for non-tracking branches:
     if options.non_tracking:
